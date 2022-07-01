@@ -49,4 +49,21 @@ const readNote = (title) => {
   );
 };
 
-module.exports = { createNote, readNote };
+const updateNote = (title, newBody) => {
+  const notes = loadNotesFromFile();
+  const noteIndex = notes.findIndex((note) => note.title === title);
+
+  if (noteIndex === -1) {
+    console.log(`Couldn't find a note with that title!`);
+    return;
+  } else if (notes[noteIndex].body === newBody) {
+    console.log(`No changes were made, you provided the same old body!`);
+    return;
+  }
+
+  notes[noteIndex].body = newBody;
+  saveNotesToFile(notes);
+  console.log(`Your note was updated successfully!`);
+};
+
+module.exports = { createNote, readNote, updateNote };

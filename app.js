@@ -33,4 +33,24 @@ yargs.command({
     notes.readNote(options.title);
   },
 });
+
+yargs.command({
+  command: "update",
+  builder: {
+    title: {
+      describe: "Provide the title of the note you want to update",
+      demandOption: true,
+      type: "string",
+    },
+    newBody: {
+      describe: "Provide the new body of the note",
+      demandOption: true,
+      type: "string",
+    },
+  },
+  handler: (options) => {
+    notes.updateNote(options.title, options.newBody);
+  },
+});
+
 yargs.parse(); //Required to run correctly
