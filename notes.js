@@ -1,4 +1,5 @@
 const fs = require("fs");
+const { title } = require("process");
 
 //-Helper functions
 const loadNotesFromFile = () => {
@@ -66,4 +67,18 @@ const updateNote = (title, newBody) => {
   console.log(`Your note was updated successfully!`);
 };
 
-module.exports = { createNote, readNote, updateNote };
+const deleteNote = (title) => {
+  const notes = loadNotesFromFile();
+  const noteIndex = notes.findIndex((note) => note.title === title);
+
+  if (noteIndex === -1) {
+    console.log(`Couldn't find a note with that title!`);
+    return;
+  }
+
+  notes.splice(noteIndex, 1);
+  saveNotesToFile(notes);
+  console.log(`Note has been deleted successfully!`);
+};
+
+module.exports = { createNote, readNote, updateNote, deleteNote };

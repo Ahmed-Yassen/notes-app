@@ -53,4 +53,18 @@ yargs.command({
   },
 });
 
+yargs.command({
+  command: "delete",
+  builder: {
+    title: {
+      describe: "Provide a title for the note to be deleted",
+      demandOption: true,
+      type: "string",
+    },
+  },
+  handler: (options) => {
+    notes.deleteNote(options.title);
+  },
+});
+
 yargs.parse(); //Required to run correctly
