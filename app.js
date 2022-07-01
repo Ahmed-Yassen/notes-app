@@ -15,9 +15,22 @@ yargs.command({
       type: "string",
     },
   },
-  handler: (argv) => {
-    notes.createNote(argv.title, argv.body);
+  handler: (options) => {
+    notes.createNote(options.title, options.body);
   },
 });
 
+yargs.command({
+  command: "read",
+  builder: {
+    title: {
+      describe: "Provide the title of the note you want to read",
+      demandOption: true,
+      type: "string",
+    },
+  },
+  handler: (options) => {
+    notes.readNote(options.title);
+  },
+});
 yargs.parse(); //Required to run correctly

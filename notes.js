@@ -3,7 +3,7 @@ const fs = require("fs");
 //-Helper functions
 const loadNotesFromFile = () => {
   try {
-    const stringNotes = fs.readFileSync("notes.json", "utf8");
+    const stringNotes = fs.readFileSync("savedNotes.json", "utf8");
     const jsonNotes = JSON.parse(stringNotes);
     return jsonNotes;
   } catch (error) {
@@ -14,7 +14,7 @@ const loadNotesFromFile = () => {
 
 const saveNotesToFile = (notesArray) => {
   const stringNotes = JSON.stringify(notesArray);
-  fs.writeFileSync("notes.json", stringNotes);
+  fs.writeFileSync("savedNotes.json", stringNotes);
 };
 
 //-Shouldn't create duplicate notes
@@ -25,7 +25,7 @@ const createNote = (title, body) => {
   });
   if (duplicateNotes.length) {
     console.log(
-      "Couldn't create note!\nYou already have a note with the same title."
+      "Couldn't create note! You already have a note with the same title."
     );
     return;
   }
@@ -35,4 +35,18 @@ const createNote = (title, body) => {
   console.log("Your note was created successfully!");
 };
 
-module.exports = { createNote };
+const readNote = (title) => {
+  const notes = loadNotesFromFile();
+  const matchedNote = notes.find((note) => note.title === title);
+
+  if (!matchedNote) {
+    console.log(`Couldn't find a note with that title!`);
+    return;
+  }
+
+  console.log(
+    `Found a match!\n\tTitle: ${matchedNote.title}\n\tBody: ${matchedNote.body}`
+  );
+};
+
+module.exports = { createNote, readNote };
