@@ -23,7 +23,7 @@ node app update --title="note's title" --newBody="note's new body"
 ```
 node app delete --title="note's title"
 ```
-- show: to real all notes
+- show: to show all notes
 ```
 node app show
 ```
