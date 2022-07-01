@@ -67,4 +67,11 @@ yargs.command({
   },
 });
 
+yargs.command({
+  command: "show",
+  handler: () => {
+    notes.showNotes();
+  },
+});
+
 yargs.parse(); //Required to run correctly

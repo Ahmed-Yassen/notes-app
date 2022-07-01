@@ -1,7 +1,6 @@
 const fs = require("fs");
-const { title } = require("process");
 
-//-Helper functions
+//-Helper Functions
 const loadNotesFromFile = () => {
   try {
     const stringNotes = fs.readFileSync("savedNotes.json", "utf8");
@@ -18,8 +17,10 @@ const saveNotesToFile = (notesArray) => {
   fs.writeFileSync("savedNotes.json", stringNotes);
 };
 
-//-Shouldn't create duplicate notes
+//-Main Functions
 const createNote = (title, body) => {
+  //-Shouldn't create duplicate notes
+
   const notes = loadNotesFromFile();
   const duplicateNotes = notes.filter((note) => {
     return note.title === title;
@@ -81,4 +82,16 @@ const deleteNote = (title) => {
   console.log(`Note has been deleted successfully!`);
 };
 
-module.exports = { createNote, readNote, updateNote, deleteNote };
+const showNotes = () => {
+  const notes = loadNotesFromFile();
+  if (!notes.length) {
+    console.log("There are no notes to show");
+    return;
+  }
+  console.log(`Your notes:`);
+  notes.forEach((note) => {
+    console.log(`\tTitle: ${note.title} --- Body: ${note.body}`);
+  });
+};
+
+module.exports = { createNote, readNote, updateNote, deleteNote, showNotes };
